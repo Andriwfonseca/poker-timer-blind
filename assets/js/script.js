@@ -25,7 +25,7 @@ function startTimer() {
         }
 
         timer.text(minute + ":" + second);
-    }, 5);
+    }, 1000);
 }
 
 function callAlarm() {
