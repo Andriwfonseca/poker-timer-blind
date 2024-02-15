@@ -6,26 +6,28 @@ function startTimer() {
     let minute = timer.text().split(":")[0];
     let second = timer.text().split(":")[1];
 
-    started = true;
+    if (!started) {
+        started = true;
 
-    interval = setInterval(() => {
-        if (started) {
-            if (second > 0) {
-                second -= 1;
-            } else {
-                if (minute > 0) {
-                    minute -= 1;
-                    second = 59;
+        interval = setInterval(() => {
+            if (started) {
+                if (second > 0) {
+                    second -= 1;
                 } else {
-                    callAlarm();
+                    if (minute > 0) {
+                        minute -= 1;
+                        second = 59;
+                    } else {
+                        callAlarm();
+                    }
                 }
+            } else {
+                second = 0;
             }
-        } else {
-            second = 0;
-        }
 
-        timer.text(minute + ":" + second);
-    }, 1000);
+            timer.text(minute + ":" + second);
+        }, 1000);
+    }
 }
 
 function callAlarm() {
@@ -53,10 +55,12 @@ function closeModal() {
 
 function pauseTimer() {
     clearInterval(interval);
+    started = false;
 }
 
 function stopTimer() {
     clearInterval(interval);
+    started = false;
     $("#timer").text("15:00");
 }
 
